@@ -7,17 +7,21 @@
 		<artifactId>ecommerce</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<groupId>com.vicma</groupId>
-	<artifactId>config-server</artifactId>
-	<name>config-server</name>
+	<artifactId>discovery-server</artifactId>
+	<name/>
 	<description/>
+	
 	<properties>
 		<spring-cloud.version>2025.1.2</spring-cloud.version>
 	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-config-server</artifactId>
+			<artifactId>spring-cloud-starter-config</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
 		</dependency>
 
 		<dependency>
