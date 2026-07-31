@@ -13,6 +13,10 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name/>
 	<description/>
+	<packaging>pom</packaging>
+	<modules>
+		<module>customer-microservice</module>
+	</modules>
 	<properties>
 		<spring-cloud.version>2025.1.2</spring-cloud.version>
 	</properties>
