@@ -1,4 +1,4 @@
-package com.vicma.micorservices.customer_microservice;
+package com.vicma.microservices.customer_microservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

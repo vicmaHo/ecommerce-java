@@ -1,4 +1,4 @@
-package com.vicma.micorservices.customer_microservice;
+package com.vicma.microservices.customer_microservice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

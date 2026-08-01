@@ -6,7 +6,7 @@
         <groupId>com.vicma</groupId>
         <artifactId>ecommerce</artifactId>
         <version>0.0.1-SNAPSHOT</version>
-		<relativePath>../pom.xml</relativepath>
+		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<groupId>com.vicma.microservices</groupId>
 	<artifactId>microservices</artifactId>
