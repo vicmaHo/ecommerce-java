@@ -32,7 +32,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponse> handleException(Exception exception) {
         var errors = new HashMap<String, String>();
         var fieldName = "message";
-        var errorMessage = "Se ha producido un error inesperado, intentalo de nuevo mas tarde";
+        var errorMessage = "An unexpected error occurred, please try again later";
         errors.put(fieldName, errorMessage);
         // TODO: realizar log del error
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)

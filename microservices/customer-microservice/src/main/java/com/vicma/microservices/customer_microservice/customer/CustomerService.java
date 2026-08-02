@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.vicma.microservices.customer_microservice.exceptions.CustomerNotFoundException;
+
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -20,8 +22,9 @@ public class CustomerService {
     }
 
     public CustomerResponse getCustomerById(String customerId) {
-        var customer = repository.findById(customerId).orElseThrow(
-                () -> new IllegalArgumentException("Customer not found with ID: " + customerId));
+        var customer = repository.findById(customerId)
+                .orElseThrow(() -> new CustomerNotFoundException(
+                        String.format("Customer with ID %s not found", customerId)));
         return mapper.toCustomerResponse(customer);
     }
 
@@ -33,7 +36,8 @@ public class CustomerService {
 
     public void updateCustomer(CustomerRequest request) {
         var customer = repository.findById(request.getId())
-                .orElseThrow(() -> new IllegalArgumentException("Customer not found with ID: " + request.getId()));
+                .orElseThrow(() -> new CustomerNotFoundException(
+                        String.format("Customer with ID %s not found", request.getId())));
         customer.setFirstName(request.getFirstName());
         customer.setLastName(request.getLastName());
         customer.setEmail(request.getEmail());
@@ -46,7 +50,8 @@ public class CustomerService {
     public void deleteCustomerById(String customerId) {
         repository
                 .findById(customerId)
-                .orElseThrow(() -> new IllegalArgumentException("Customer not found with ID: " + customerId));
+                .orElseThrow(() -> new CustomerNotFoundException(
+                        String.format("Customer with ID %s not found", customerId)));
         repository.deleteById(customerId);
     }
 
