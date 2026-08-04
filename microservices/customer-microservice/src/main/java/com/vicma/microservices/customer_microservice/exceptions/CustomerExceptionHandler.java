@@ -11,8 +11,11 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import com.vicma.microservices.common_exceptions.ErrorResponse;
 import com.vicma.microservices.common_exceptions.GlobalExceptionHandler;
 
+import lombok.extern.slf4j.Slf4j;
+
 @RestControllerAdvice
 @Primary
+@Slf4j
 public class CustomerExceptionHandler extends GlobalExceptionHandler {
 
     @ExceptionHandler(CustomerNotFoundException.class)
@@ -20,6 +23,8 @@ public class CustomerExceptionHandler extends GlobalExceptionHandler {
         var errors = new HashMap<String, String>();
         var fieldName = "customer";
         errors.put(fieldName, exception.getMessage());
+
+        log.warn("Customer Not Found: {}", exception.toString());
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse(errors));
     }
