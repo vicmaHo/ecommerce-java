@@ -13,8 +13,25 @@ services:
       - MONGO_INITDB_ROOT_USERNAME=admin
       - MONGO_INITDB_ROOT_PASSWORD=password
 
+  postgres:
+    image: postgres:15-alpine
+    container_name: postgresql_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres:/data/postgres
+    networks:
+      - microservices
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: product_db
+      PGDATA: /data/postgres
+
 volumes:
   mongo:
+  postgres:
 
 networks:
   microservices:
