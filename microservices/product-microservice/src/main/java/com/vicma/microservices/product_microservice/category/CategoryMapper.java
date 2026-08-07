@@ -1,5 +1,7 @@
 package com.vicma.microservices.product_microservice.category;
 
+import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Component;
 
 @Component
@@ -17,6 +19,8 @@ public class CategoryMapper {
                 .id(category.getId())
                 .name(category.getName())
                 .description(category.getDescription())
+                .products(category.getProductos().stream().map(ProductMapper::toProductResponse)
+                        .collect(Collectors.toList()))
                 .build();
     }
 }

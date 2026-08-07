@@ -1,5 +1,7 @@
 package com.vicma.microservices.product_microservice.category;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,4 +15,5 @@ public class CategoryResponse {
     private Integer id;
     private String name;
     private String description;
+    private List<ProductResponse> products;
 }
