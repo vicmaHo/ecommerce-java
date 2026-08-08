@@ -5,6 +5,8 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
+import com.vicma.microservices.product_microservice.exceptions.CategoryNotFoundException;
+
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -29,11 +31,14 @@ public class CategoryService {
     public CategoryResponse getCategoryById(Integer id) {
         return repository.findById(id)
                 .map(mapper::toCategoryResponse)
-                .orElse(null);
+                .orElseThrow(() -> new CategoryNotFoundException(
+                        String.format("Category with ID %s not found", id)));
     }
 
     public void updateCategory(CategoryRequest request) {
-        var category = repository.findById(request.getId()).orElseThrow();
+        var category = repository.findById(request.getId())
+                .orElseThrow(() -> new CategoryNotFoundException(
+                        String.format("Category with ID %s not found", request.getId())));
         category.setName(request.getName());
         category.setDescription(request.getDescription());
         repository.save(category);
@@ -41,7 +46,8 @@ public class CategoryService {
     }
 
     public void deleteCategory(Integer id) {
-        repository.findById(id).orElseThrow();
+        repository.findById(id).orElseThrow(() -> new CategoryNotFoundException(
+                String.format("Category with ID %s not found", id)));
         repository.deleteById(id);
     }
 
