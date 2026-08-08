@@ -4,6 +4,8 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
+import com.vicma.microservices.product_microservice.product.ProductMapper;
+
 @Component
 public class CategoryMapper {
 

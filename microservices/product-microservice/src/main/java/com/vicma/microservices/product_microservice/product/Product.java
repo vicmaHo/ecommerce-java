@@ -1,4 +1,6 @@
-package com.vicma.microservices.product_microservice.category;
+package com.vicma.microservices.product_microservice.product;
+
+import com.vicma.microservices.product_microservice.category.Category;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;

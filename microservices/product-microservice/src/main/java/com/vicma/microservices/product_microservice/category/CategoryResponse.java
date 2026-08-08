@@ -2,6 +2,8 @@ package com.vicma.microservices.product_microservice.category;
 
 import java.util.List;
 
+import com.vicma.microservices.product_microservice.product.ProductResponse;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

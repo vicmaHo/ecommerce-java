@@ -2,6 +2,8 @@ package com.vicma.microservices.product_microservice.category;
 
 import java.util.List;
 
+import com.vicma.microservices.product_microservice.product.Product;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;

@@ -1,4 +1,4 @@
-package com.vicma.microservices.product_microservice.category;
+package com.vicma.microservices.product_microservice.product;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
