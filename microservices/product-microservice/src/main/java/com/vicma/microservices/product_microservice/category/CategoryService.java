@@ -26,4 +26,23 @@ public class CategoryService {
         return repository.save(category).getId();
     }
 
+    public CategoryResponse getCategoryById(Integer id) {
+        return repository.findById(id)
+                .map(mapper::toCategoryResponse)
+                .orElse(null);
+    }
+
+    public void updateCategory(CategoryRequest request) {
+        var category = repository.findById(request.getId()).orElseThrow();
+        category.setName(request.getName());
+        category.setDescription(request.getDescription());
+        repository.save(category);
+
+    }
+
+    public void deleteCategory(Integer id) {
+        repository.findById(id).orElseThrow();
+        repository.deleteById(id);
+    }
+
 }

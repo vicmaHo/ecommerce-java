@@ -8,15 +8,19 @@ spring:
     hibernate:
       ddl-auto: update
     database-platform: org.hibernate.dialect.PostgreSQLDialect
+  output:
+    ansi:
+      enabled: ALWAYS
 
 logging:
   level:
     root: INFO
     com.vicma.microservices: WARN
   pattern:
-    # formato con hilo, nivel, logger (nombre del logger con max 36 caracteres)
-    console: '%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n' 
-    file: '%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n'
+    # Formato con hilo, nivel, logger (máximo 36 caracteres)
+    console: "%clr(%d{yyyy-MM-dd HH:mm:ss}){faint} %clr([%thread]){faint} %clr(%-5level) %clr(%logger{36}){cyan} %clr(-){faint} %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+
   file:
     name: logs/product-microservice.log
     max-size: 10MB
