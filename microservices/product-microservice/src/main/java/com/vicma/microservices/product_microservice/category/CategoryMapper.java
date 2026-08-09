@@ -6,8 +6,13 @@ import org.springframework.stereotype.Component;
 
 import com.vicma.microservices.product_microservice.product.ProductMapper;
 
+import lombok.RequiredArgsConstructor;
+
 @Component
+@RequiredArgsConstructor
 public class CategoryMapper {
+
+    private final ProductMapper productMapper;
 
     public Category toCategory(CategoryRequest request) {
         return Category.builder()
@@ -21,7 +26,7 @@ public class CategoryMapper {
                 .id(category.getId())
                 .name(category.getName())
                 .description(category.getDescription())
-                .products(category.getProductos().stream().map(ProductMapper::toProductResponse)
+                .products(category.getProductos().stream().map(productMapper::toProductResponse)
                         .collect(Collectors.toList()))
                 .build();
     }

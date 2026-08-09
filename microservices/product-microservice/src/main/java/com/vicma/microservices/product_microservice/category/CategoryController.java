@@ -42,13 +42,13 @@ public class CategoryController {
     @PutMapping
     public ResponseEntity<Void> updateCategory(@Valid @RequestBody CategoryRequest request) {
         service.updateCategory(request);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.accepted().build();
     }
 
     @DeleteMapping("/{categoryId}")
     public ResponseEntity<Void> deleteCategory(@PathVariable("categoryId") Integer categoryId) {
         service.deleteCategory(categoryId);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.accepted().build();
     }
 
 }
