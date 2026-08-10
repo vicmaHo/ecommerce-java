@@ -40,4 +40,15 @@ public class ProductExceptionHandler extends GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse(errors));
     }
 
+    @ExceptionHandler(NotEnoughStockException.class)
+    public ResponseEntity<ErrorResponse> handle(NotEnoughStockException exception) {
+        var errors = new HashMap<String, String>();
+        var fieldName = "product";
+        errors.put(fieldName, exception.getMessage());
+
+        log.warn("Not Enough Stock: {}", exception.toString());
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse(errors));
+    }
+
 }

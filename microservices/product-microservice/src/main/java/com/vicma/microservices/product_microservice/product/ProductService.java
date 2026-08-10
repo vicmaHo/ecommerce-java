@@ -3,8 +3,10 @@ package com.vicma.microservices.product_microservice.product;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.vicma.microservices.product_microservice.category.CategoryRepository;
+import com.vicma.microservices.product_microservice.exceptions.NotEnoughStockException;
 import com.vicma.microservices.product_microservice.exceptions.ProductNotFoundException;
 
 import lombok.RequiredArgsConstructor;
@@ -61,6 +63,39 @@ public class ProductService {
                 .orElseThrow(() -> new ProductNotFoundException(
                         String.format("Product with ID %d not found", productId)));
         repository.deleteById(productId);
+    }
+
+    @Transactional
+    public void purchaseProduct(List<ProductQuantityRequest> request) {
+
+        for (ProductQuantityRequest item : request) {
+
+            Product product = repository.findById(item.getProductId())
+                    .orElseThrow(() -> new ProductNotFoundException(
+                            String.format("Product with ID %d not found", item.getProductId())));
+
+            if (product.getStock() < item.getQuantity()) {
+                throw new NotEnoughStockException(
+                        item.getProductId(),
+                        item.getQuantity(),
+                        product.getStock());
+            }
+
+            product.setStock(product.getStock() - item.getQuantity());
+            repository.save(product);
+        }
+    }
+
+    public void restockProduct(List<ProductQuantityRequest> request) {
+        for (ProductQuantityRequest item : request) {
+
+            Product product = repository.findById(item.getProductId())
+                    .orElseThrow(() -> new ProductNotFoundException(
+                            String.format("Product with ID %d not found", item.getProductId())));
+
+            product.setStock(product.getStock() + item.getQuantity());
+            repository.save(product);
+        }
     }
 
 }
