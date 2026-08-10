@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.vicma.microservices.product_microservice.category.CategoryRepository;
+import com.vicma.microservices.product_microservice.exceptions.ProductNotFoundException;
 
 import lombok.RequiredArgsConstructor;
 
@@ -26,7 +27,8 @@ public class ProductService {
     public ProductResponse getProductById(Integer productId) {
         return repository.findById(productId)
                 .map(mapper::toProductResponse)
-                .orElseThrow();
+                .orElseThrow(() -> new ProductNotFoundException(
+                        String.format("Product with ID %d not found", productId)));
     }
 
     public void createProduct(ProductRequest request) {
@@ -39,7 +41,8 @@ public class ProductService {
 
     public void updateProduct(Integer productId, ProductRequest request) {
         var product = repository.findById(productId)
-                .orElseThrow();
+                .orElseThrow(() -> new ProductNotFoundException(
+                        String.format("Product with ID %d not found", productId)));
 
         var category = categoryRepository.findById(request.getCategoryId())
                 .orElseThrow();
@@ -55,7 +58,8 @@ public class ProductService {
 
     public void deleteProduct(Integer productId) {
         repository.findById(productId)
-                .orElseThrow();
+                .orElseThrow(() -> new ProductNotFoundException(
+                        String.format("Product with ID %d not found", productId)));
         repository.deleteById(productId);
     }
 

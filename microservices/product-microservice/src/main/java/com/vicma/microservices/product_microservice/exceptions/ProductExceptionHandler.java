@@ -29,4 +29,15 @@ public class ProductExceptionHandler extends GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse(errors));
     }
 
+    @ExceptionHandler(ProductNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handle(ProductNotFoundException exception) {
+        var errors = new HashMap<String, String>();
+        var fieldName = "product";
+        errors.put(fieldName, exception.getMessage());
+
+        log.warn("Product Not Found: {}", exception.toString());
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse(errors));
+    }
+
 }
