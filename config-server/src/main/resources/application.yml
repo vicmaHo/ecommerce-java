@@ -11,3 +11,14 @@ spring:
 
 server:
     port: 8888
+
+# Habilitamos el gestor de salud de Spring Actuator
+management:
+    endpoints:
+        web:
+            exposure:
+                # permite acceder a las rutas /actuator/* desde la web
+                include: health, beans, metrics, info, env
+    endpoint:
+        health:
+            show-details: always
