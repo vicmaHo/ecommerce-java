@@ -125,6 +125,27 @@ services:
     networks:
       - microservices
 
+  cart-microservice:
+    build:
+      context: .
+      dockerfile: ./microservices/cart-microservice/Dockerfile
+    container_name: cart-microservice
+    depends_on:
+      config-server:
+        condition: service_healthy
+      discovery-server:
+        condition: service_healthy
+      mongodb:
+        condition: service_healthy
+    ports:
+      - "${CART_MICROSERVICE_PORT}:8098"
+    environment:
+      - SPRING_CONFIG_IMPORT=configserver:http://config-server:8888
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-server:8761/eureka/
+      - SPRING_MONGODB_URI=mongodb://${MONGO_DB_USERNAME}:${MONGO_DB_PASSWORD}@mongodb:27017/${CART_DB_NAME}?authSource=admin
+    networks:
+      - microservices
+
 volumes:
   mongo:
   postgres:
