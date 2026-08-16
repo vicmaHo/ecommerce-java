@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class CartItemRequest {
 
     @NotNull(message = "Product ID is required")
-    private String productId;
+    private Integer productId;
 
     @Min(value = 1, message = "Quantity must be at least 1")
     @NotNull(message = "Quantity is required")

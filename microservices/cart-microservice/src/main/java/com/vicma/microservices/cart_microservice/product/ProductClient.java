@@ -10,6 +10,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 public interface ProductClient {
 
     @GetMapping("api/v1/products/{id}")
-    Optional<ProductResponse> getProductById(@PathVariable("id") String productId);
+    Optional<ProductResponse> getProductById(@PathVariable("id") Integer productId);
 
 }
