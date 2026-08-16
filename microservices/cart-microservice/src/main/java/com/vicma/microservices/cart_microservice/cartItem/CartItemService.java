@@ -8,6 +8,7 @@ import com.vicma.microservices.cart_microservice.cart.Cart;
 import com.vicma.microservices.cart_microservice.cart.CartRepository;
 import com.vicma.microservices.cart_microservice.customer.CustomerClient;
 import com.vicma.microservices.cart_microservice.customer.CustomerResponse;
+import com.vicma.microservices.cart_microservice.exceptions.CartException;
 import com.vicma.microservices.cart_microservice.product.ProductClient;
 import com.vicma.microservices.cart_microservice.product.ProductResponse;
 
@@ -25,15 +26,15 @@ public class CartItemService {
 
         // verifico que el cliente existe
         CustomerResponse customerResponse = customerClient.getCustomerById(customerId)
-                .orElseThrow();
+                .orElseThrow(() -> new CartException("Customer not found"));
 
         // verifico que el producto existe
         ProductResponse productResponse = productClient.getProductById(cartItemRequest.getProductId())
-                .orElseThrow();
+                .orElseThrow(() -> new CartException("Product not found"));
 
         // verifico que hay suficiente stock
         if (productResponse.getStock() < cartItemRequest.getQuantity()) {
-            throw new IllegalArgumentException("Not enought stock");
+            throw new CartException("Not enought stock");
         }
 
         // obten go el carrito del cliente, si no existe creo uno nuevo
@@ -48,7 +49,7 @@ public class CartItemService {
                 .anyMatch(item -> item.getProductId().equals(cartItemRequest.getProductId()));
 
         if (productExist) {
-            throw new IllegalArgumentException("The product already exists in the cart");
+            throw new CartException("The product already exists in the cart");
         }
 
         cart.getItems()

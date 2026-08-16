@@ -24,6 +24,13 @@
 			<artifactId>spring-boot-starter-data-mongodb-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>com.vicma.microservices</groupId>
+			<artifactId>common-exceptions</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
 	</dependencies>
 	<dependencyManagement>
 		<dependencies>
