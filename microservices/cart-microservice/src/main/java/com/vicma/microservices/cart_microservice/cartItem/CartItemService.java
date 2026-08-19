@@ -61,4 +61,23 @@ public class CartItemService {
         return cart.getId();
     }
 
+    public void updateQuantity(String customerId, CartItemRequest request) {
+        Cart cart = cartRepository.findByCustomerId(customerId)
+                .orElseThrow(() -> new CartException("Cart not found for customer with id " + customerId));
+
+        for (CartItem item : cart.getItems()) {
+            if (item.getProductId().equals(request.getProductId())) {
+                if (request.getQuantity() <= 0) {
+                    cart.getItems().remove(item);
+                    cartRepository.save(cart);
+                    return;
+                }
+                item.setQuantity(request.getQuantity());
+                cartRepository.save(cart);
+                return;
+            }
+        }
+        throw new CartException("Product not found in the cart");
+    }
+
 }
