@@ -21,4 +21,10 @@ public class CartService {
 
     }
 
+    public void deleteCart(String customerId) {
+        Cart cart = cartRepository.findByCustomerId(customerId)
+                .orElseThrow(() -> new CartException("Cart not found for customer with id " + customerId));
+        cartRepository.delete(cart);
+    }
+
 }
