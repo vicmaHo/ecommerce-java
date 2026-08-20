@@ -34,7 +34,7 @@ public class CartItemService {
 
         // verifico que hay suficiente stock
         if (productResponse.getStock() < cartItemRequest.getQuantity()) {
-            throw new CartException("Not enought stock");
+            throw new CartException("Not enough stock");
         }
 
         // obten go el carrito del cliente, si no existe creo uno nuevo
@@ -72,6 +72,15 @@ public class CartItemService {
                     cartRepository.save(cart);
                     return;
                 }
+
+                // verifico que el producto existe y tiene stock suficiente
+                ProductResponse productResponse = productClient.getProductById(request.getProductId())
+                        .orElseThrow(() -> new CartException("Product not found"));
+
+                if (productResponse.getStock() < request.getQuantity()) {
+                    throw new CartException("Not enough stock");
+                }
+
                 item.setQuantity(request.getQuantity());
                 cartRepository.save(cart);
                 return;
