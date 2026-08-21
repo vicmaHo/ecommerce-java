@@ -1,6 +1,7 @@
 package com.vicma.microservices.cart_microservice.cartItem;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -31,6 +32,13 @@ public class CartItemController {
         service.updateQuantity(customerId, request);
         return ResponseEntity.noContent().build();
 
+    }
+
+    @DeleteMapping("/{productId}")
+    public ResponseEntity<Void> deleteProduct(@PathVariable("customerId") String customerId,
+            @PathVariable("productId") Integer productId) {
+        service.deleteProduct(customerId, productId);
+        return ResponseEntity.noContent().build();
     }
 
 }

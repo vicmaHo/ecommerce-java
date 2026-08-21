@@ -89,4 +89,18 @@ public class CartItemService {
         throw new CartException("Product not found in the cart");
     }
 
+    public void deleteProduct(String customerId, Integer productId) {
+        Cart cart = cartRepository.findByCustomerId(customerId)
+                .orElseThrow(() -> new CartException("Cart not found for customer with id " + customerId));
+        for (CartItem item : cart.getItems()) {
+            if (item.getProductId().equals(productId)) {
+                cart.getItems().remove(item);
+                cartRepository.save(cart);
+                return;
+            }
+        }
+
+        throw new CartException(String.format("Product with id %d not found in the cart", productId));
+    }
+
 }
