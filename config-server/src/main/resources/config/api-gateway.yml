@@ -1,3 +1,26 @@
+spring:
+  cloud:
+    gateway:
+      server:
+        webflux:
+          routes:
+            - id: customer-microservice
+              uri: lb://customer-microservice
+              predicates:
+                - Path=/api/v1/customers/**
+            - id: product-microservice
+              uri: lb://product-microservice
+              predicates:
+                - Path=/api/v1/products/**
+            - id: product-category-route
+              uri: lb://product-microservice
+              predicates:
+                - Path=/api/v1/categories/**
+            - id: cart-microservice
+              uri: lb://cart-microservice
+              predicates:
+                - Path=/api/v1/*/cart/**
+      
 eureka:
   client:
     service-url:
