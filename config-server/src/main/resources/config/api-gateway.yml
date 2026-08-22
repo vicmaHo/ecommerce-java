@@ -1,0 +1,20 @@
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_CLIENT_SERVICEURL_DEFAULTZONE:http://discovery-server:8761/eureka/}
+
+logging:
+  level:
+    root: INFO
+    com.vicma.microservices: WARN
+  pattern:
+    # formato con hilo, nivel, logger (nombre del logger con max 36 caracteres)
+    console: '%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n' 
+    file: '%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n'
+  file:
+    name: logs/cart-microservice.log
+    max-size: 10MB
+    max-files: 30
+
+server:
+  port: 8222
