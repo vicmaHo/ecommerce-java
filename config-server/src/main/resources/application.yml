@@ -18,7 +18,7 @@ management:
         web:
             exposure:
                 # permite acceder a las rutas /actuator/* desde la web
-                include: health, beans, metrics, info, env
+                include: health, info, prometheus
     endpoint:
         health:
             show-details: always
