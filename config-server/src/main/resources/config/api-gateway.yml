@@ -28,7 +28,13 @@ spring:
                 - Path=/api/v1/*/cart/**
               filters:
                 - PreserveHostHeader
-                - RewritePath=/api/v1/*/cart/v3/api-docs, /v3/api-docs
+            - id: cart-microservice-docs
+              uri: lb://cart-microservice
+              predicates:
+                - Path=/api/v1/cart/v3/api-docs
+              filters:
+                - PreserveHostHeader
+                - RewritePath=/api/v1/cart/v3/api-docs, /v3/api-docs
 
 eureka:
   client:
