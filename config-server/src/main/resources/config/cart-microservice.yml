@@ -33,3 +33,15 @@ management:
     endpoint:
       health:
         show-details: always
+
+
+# agregar información modificada a la documentación openapi
+springdoc:
+  openapi:
+    info:
+      title: Cart Microservice API
+      description: Service for manage shop carts
+      version: 1.0.0
+      contact:
+        name: vicmaHo
+        email: vicmaH@mail.com
